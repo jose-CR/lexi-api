@@ -99,14 +99,14 @@ class WordController extends Controller
     }
 
     public function update(UpdateWordRequest $request, Word $word){
-        $updated = $word->update($request->only([
-            'sub_category_id',
-            'letter',
-            'word',
-            'definition',
-            'sentence',
-            'spanish_sentence'
-        ]));
+        $data = $request->validated();
+    
+        // Si definition aún es array, conviértela a json
+        if (isset($data['definition']) && is_array($data['definition'])) {
+            $data['definition'] = json_encode($data['definition']);
+        }
+    
+        $updated = $word->update($data);
     
         if (!$updated) {
             return response()->json([
