@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\CreateController;
+use App\Http\Controllers\admin\EditController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +24,20 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+#rutas para las vistas administrativas de la API
+Route::view('category', 'admin/category')
+    ->middleware(['auth', 'verified'])
+    ->name('category');
+
+#Rutas para el CRUD de vistas
+Route::group(['middleware' => ['verified', 'auth']], function () {
+    # category
+    Route::view('category/create', 'admin/pages/create/category-create')
+    ->name('category-create');
+
+    Route::get('category/{id}', [EditController::class, 'updatecategory'])->name('category-edit');
+    #------------------------------------------------------------------------------------------------
+});
 
 require __DIR__.'/auth.php';
