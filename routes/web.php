@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\CreateController;
-use App\Http\Controllers\admin\EditController;
+use App\Http\Controllers\admin\frontend\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,13 +29,24 @@ Route::view('category', 'admin/category')
     ->middleware(['auth', 'verified'])
     ->name('category');
 
+Route::view('subcategory', 'admin/subcategory')
+    ->middleware(['auth', 'verified'])
+    ->name('subcategory');
+
+#-------------------------------------------------------
 #Rutas para el CRUD de vistas
 Route::group(['middleware' => ['verified', 'auth']], function () {
     # category
     Route::view('category/create', 'admin/pages/create/category-create')
     ->name('category-create');
 
-    Route::get('category/{id}', [EditController::class, 'updatecategory'])->name('category-edit');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('category.store');
+
+    Route::get('category/edit/{id}', [CategoryController::class, 'editShow'])->name('category-edit');
+
+    Route::put('/categories/edit/{id}', [CategoryController::class, 'update'])->name('category.edit');
+
+    Route::delete('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
     #------------------------------------------------------------------------------------------------
 });
 

@@ -20,6 +20,14 @@
     </div>
 @endif
 
-<button type="button" wire:click="showNotification" class="{{ $classes }}">
+<button
+    type="button"
+    @if ($button === 'delete')
+        wire:click="confirmDelete"
+    @else
+        wire:click="showNotification"
+    @endif
+    class="{{ $classes }}"
+>
     <span class="mr-1">{{ $icons }}</span> {{ $name }}
 </button>
