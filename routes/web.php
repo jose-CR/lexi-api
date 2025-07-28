@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\frontend\CategoryController;
+use App\Http\Controllers\admin\frontend\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,16 @@ Route::group(['middleware' => ['verified', 'auth']], function () {
 
     Route::delete('/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
     #------------------------------------------------------------------------------------------------
+    # subcategory
+    Route::get('subcategory/create', [SubCategoryController::class, 'create'])->name('subcategory-create');
+
+    Route::post('/subcategories/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
+
+    Route::get('subcategory/edit/{id}', [SubCategoryController::class, 'editShow'])->name('subcategory-edit');
+            
+    Route::put('/subcategories/edit/{id}', [SubCategoryController::class, 'update'])->name('subcategory.edit');
+            
+    Route::delete('/subcategories/delete/{subcategory}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
 });
 
 require __DIR__.'/auth.php';
