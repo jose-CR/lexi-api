@@ -18,7 +18,7 @@ class UpdateWordRequest extends FormRequest
                 'sub_category_id' => ['nullable', 'exists:sub_categories,id'],
                 'letter' => ['required', 'string', 'min:1', 'max:255'],
                 'word' => ['required', 'string', 'min:1', 'max:255'],
-                'definition' => ['required', 'array', 'min:1'],
+                'definition' => ['required', 'string', 'min:1'],
                 'sentence' => ['required', 'string', 'min:1', 'max:255'],
                 'spanish_sentence' => ['required', 'string', 'min:1', 'max:255'],
             ];
@@ -28,7 +28,7 @@ class UpdateWordRequest extends FormRequest
             'sub_category_id' => ['sometimes', 'nullable', 'exists:sub_categories,id'],
             'letter' => ['sometimes', 'string', 'min:1', 'max:255'],
             'word' => ['sometimes', 'string', 'min:1', 'max:255'],
-            'definition' => ['sometimes', 'array', 'min:1'],
+            'definition' => ['sometimes', 'string', 'min:1'],
             'sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
             'spanish_sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
         ];

@@ -45,7 +45,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="{{ count($columns) }}" class="text-center py-4 text-gray-600">
+                    <td colspan="{{ count($columns) }}" class="text-center py-4 text-white">
                         No hay datos disponibles.
                     </td>
                 </tr>

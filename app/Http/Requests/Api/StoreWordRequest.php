@@ -22,10 +22,10 @@ class StoreWordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subCategoryId' => ['nullable', 'exists:sub_categories,id'],
+            'subCategoryId' => ['required', 'exists:sub_categories,id'],
             'letter' => ['required', 'string', 'min:1', 'max:255'],
             'word' => ['required', 'string', 'min:1', 'max:255'],
-            'definition' => ['required', 'json', 'min:1'],
+            'definition' => ['required', 'string', 'min:1'],
             'spanishSentence' => ['required', 'string', 'min:1', 'max:255'],
             'sentence' => ['required', 'string', 'min:1', 'max:255']
         ];
