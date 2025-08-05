@@ -25,7 +25,7 @@ class BulkWordRequest extends FormRequest
             '*.subCategoryId' => ['nullable', 'exists:sub_categories,id'],
             '*.letter' => ['required', 'string', 'min:1', 'max:255'],
             '*.word' => ['required', 'string', 'min:1', 'max:255'],
-            '*.definition' => ['required', 'array', 'min:1'],
+            '*.definition' => ['required', 'string', 'min:1'],
             '*.sentence' => ['required', 'string', 'min:1', 'max:255'],
             '*.spanishSentence' => ['required', 'string', 'min:1', 'max:255'],
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSubCategoryRequest extends FormRequest
@@ -21,10 +22,23 @@ class UpdateSubCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'categoryId' => ['nullable', 'exists:categories,id'],
-            'subCategory' => ['required', 'string', 'min:1', 'max:255']
-        ];
+        $method = $this->method();
+
+        if($method == 'PUT'){
+            return [
+                'categoryId' => ['nullable', 'exists:categories,id'],
+                'subCategory' => ['required', 'string', 'min:1', 'max:255']
+            ];
+        }elseif($method == 'PATCH'){
+            return [
+                'categoryId' => ['sometimes', 'exists:categories,id'],
+                'subCategory' => ['sometimes', 'string', 'min:1', 'max:255']
+            ];
+        }    
+        
+        throw ValidationException::withMessages([
+            'method' => ["El método HTTP '$method' no es soportado para esta petición."]
+        ]);
     }
 
     protected function prepareForValidation()

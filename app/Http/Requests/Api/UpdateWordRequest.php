@@ -13,7 +13,9 @@ class UpdateWordRequest extends FormRequest
 
     public function rules(): array
     {
-        if ($this->isMethod('PUT')) {
+        $method = $this->method();
+
+        if ($method == 'PUT') {
             return [
                 'sub_category_id' => ['nullable', 'exists:sub_categories,id'],
                 'letter' => ['required', 'string', 'min:1', 'max:255'],
@@ -22,16 +24,18 @@ class UpdateWordRequest extends FormRequest
                 'sentence' => ['required', 'string', 'min:1', 'max:255'],
                 'spanish_sentence' => ['required', 'string', 'min:1', 'max:255'],
             ];
+        }elseif($method == 'PATCH'){
+            return [
+                'sub_category_id' => ['sometimes', 'nullable', 'exists:sub_categories,id'],
+                'letter' => ['sometimes', 'string', 'min:1', 'max:255'],
+                'word' => ['sometimes', 'string', 'min:1', 'max:255'],
+                'definition' => ['sometimes', 'string', 'min:1'],
+                'sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
+                'spanish_sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
+            ];   
         }
-    
-        return [
-            'sub_category_id' => ['sometimes', 'nullable', 'exists:sub_categories,id'],
-            'letter' => ['sometimes', 'string', 'min:1', 'max:255'],
-            'word' => ['sometimes', 'string', 'min:1', 'max:255'],
-            'definition' => ['sometimes', 'string', 'min:1'],
-            'sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
-            'spanish_sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
-        ];
+
+        return [];
     }
 
     protected function prepareForValidation(): void
