@@ -4,6 +4,50 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+     * @OA\Schema(
+     *     schema="UpdateWordRequest",
+     *     title="Update Word Request",
+     *     description="Datos permitidos para actualizar una palabra",
+     *     @OA\Property(
+     *         property="subCategoryId",
+     *         type="integer",
+     *         nullable=true,
+     *         example=5,
+     *         description="ID de la subcategoría asociada (opcional)"
+     *     ),
+     *     @OA\Property(
+     *         property="letter",
+     *         type="string",
+     *         example="B",
+     *         description="Letra inicial de la palabra"
+     *     ),
+     *     @OA\Property(
+     *         property="word",
+     *         type="string",
+     *         example="Barco",
+     *         description="Palabra registrada"
+     *     ),
+     *     @OA\Property(
+     *         property="definition",
+     *         type="string",
+     *         example="Embarcación de gran tamaño destinada a navegar.",
+     *         description="Definición de la palabra"
+     *     ),
+     *     @OA\Property(
+     *         property="sentence",
+     *         type="string",
+     *         example="The ship sails at dawn.",
+     *         description="Oración en otro idioma con la palabra"
+     *     ),
+     *     @OA\Property(
+     *         property="spanishSentence",
+     *         type="string",
+     *         example="El barco zarpa al amanecer.",
+     *         description="Oración en español con la palabra"
+     *     )
+     * )
+     */
 class UpdateWordRequest extends FormRequest
 {
     public function authorize(): bool

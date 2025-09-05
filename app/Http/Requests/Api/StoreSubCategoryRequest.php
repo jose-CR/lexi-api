@@ -4,6 +4,27 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *     schema="StoreSubCategoryRequest",
+ *     title="Store SubCategory Request",
+ *     description="Datos necesarios para crear una subcategoría",
+ *     required={"subCategory"},
+ *     @OA\Property(
+ *         property="categoryId",
+ *         type="integer",
+ *         nullable=true,
+ *         example=2,
+ *         description="ID de la categoría padre (opcional)"
+ *     ),
+ *     @OA\Property(
+ *         property="subCategory",
+ *         type="string",
+ *         example="Animales",
+ *         description="Nombre de la subcategoría"
+ *     )
+ * )
+ */
 class StoreSubCategoryRequest extends FormRequest
 {
     /**

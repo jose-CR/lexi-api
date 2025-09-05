@@ -7,8 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Log;
 
-use function Laravel\Prompts\error;
-
+/**
+ * @OA\Schema(
+ *     schema="Word",
+ *     title="Word",
+ *     description="Modelo de palabras asociadas a una subcategoría",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="sub_category_id", type="integer", example=2),
+ *     @OA\Property(property="letter", type="string", maxLength=1, example="A"),
+ *     @OA\Property(property="word", type="string", example="Apple"),
+ *     @OA\Property(
+ *         property="definition",
+ *         type="array",
+ *         @OA\Items(type="string"),
+ *         example={"A fruit", "A tech company"}
+ *     ),
+ *     @OA\Property(property="spanish_sentence", type="string", example="La manzana es una fruta."),
+ *     @OA\Property(property="sentence", type="string", example="Apple is a leading tech company."),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-05T12:00:00Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-05T12:00:00Z")
+ * )
+*/
 class Word extends Model
 {
     use HasFactory;
