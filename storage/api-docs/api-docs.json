@@ -1,0 +1,1255 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Lexi API",
+        "description": "Documentación de endpoints",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Listar todas las categorías",
+                "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
+                "parameters": [
+                    {
+                        "name": "includeSubCategories",
+                        "in": "query",
+                        "description": "Incluir subcategorías en la respuesta",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página para la paginación",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de categorías"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Crear una nueva categoría",
+                "description": "Crea una categoría con los datos enviados",
+                "operationId": "bb02f0320882db37f99574196577e446",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nueva categoría"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoría creada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Se ha creado una nueva categoría correctamente."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear la categoría"
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Obtener una categoría",
+                "description": "Devuelve los detalles de una categoría, con opción de incluir subcategorías",
+                "operationId": "4cdf41756315109f1efc72787db5830a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "includeSubCategories",
+                        "in": "query",
+                        "description": "Incluir subcategorías",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría obtenida correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Categoría no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Actualizar una categoría",
+                "description": "Actualiza los datos de una categoría existente",
+                "operationId": "19954b1f8aa4916b5f032dc28ea36a24",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Categoría Actualizada"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Categoría actualizada correctamente."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al actualizar la categoría"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Eliminar una categoría",
+                "description": "Elimina la categoría especificada",
+                "operationId": "f1b8af6e84bd52b9594d98bde748ebd6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la categoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría eliminada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ La Categoria se ha eliminado exitosamente"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al eliminar la categoría"
+                    }
+                }
+            }
+        },
+        "/subcategories": {
+            "get": {
+                "tags": [
+                    "SubCategories"
+                ],
+                "summary": "Listar todas las subcategorías",
+                "description": "Muestra un listado paginado de subcategorías. Puede incluir palabras relacionadas si se solicita.",
+                "operationId": "af5fa99dc8b91fbd76ed4dda483bb262",
+                "parameters": [
+                    {
+                        "name": "includeWords",
+                        "in": "query",
+                        "description": "Incluir palabras asociadas",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado de subcategorías con paginación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "info": {
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                },
+                                                "pages": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/subcategories?page=2",
+                                                    "nullable": true
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SubCategory"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 50
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/subcategories?page=1"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/subcategories?page=2",
+                                                    "nullable": true
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/subcategories?page=5"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SubCategories"
+                ],
+                "summary": "Crear una nueva subcategoría",
+                "operationId": "989d9644fbfa7bed6f668dc610fca376",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreSubCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Subcategoría creada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Se ha creado una nueva sub categoría correctamente."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubCategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear subcategoría",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo crear una nueva sub categoría."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/subcategories/{id}": {
+            "get": {
+                "tags": [
+                    "SubCategories"
+                ],
+                "summary": "Mostrar subcategoría específica",
+                "operationId": "7251f65317205d667635726d0c6ecb6f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la subcategoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "includeWords",
+                        "in": "query",
+                        "description": "Incluir palabras asociadas",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle de subcategoría",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubCategory"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SubCategories"
+                ],
+                "summary": "Actualizar una subcategoría",
+                "operationId": "f668518b5ec574147ddebf8e9bef3f12",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la subcategoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateSubCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Subcategoría actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ sub categoría actualizada correctamente."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubCategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al actualizar subcategoría",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo actualizar la sub categoría."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SubCategories"
+                ],
+                "summary": "Eliminar una subcategoría",
+                "operationId": "8e60e7000b7e0a572f6fd9653f04dda2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la subcategoría",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Subcategoría eliminada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ La sub categoria se ha eliminado exitosamente"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/SubCategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al eliminar subcategoría",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo eliminar la sub categoria"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/words": {
+            "get": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Listar palabras",
+                "description": "Devuelve un listado paginado de palabras con filtros opcionales.",
+                "operationId": "7aa8ed979f6c20fcace5fd0d07c6eb79",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número de página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado paginado de palabras",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "info": {
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "pages": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/words?page=2",
+                                                    "nullable": true
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Word"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/words?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/words?page=10"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "http://api.test/words?page=2",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Crear palabra",
+                "description": "Crea una nueva palabra en el sistema.",
+                "operationId": "9af65a00dee64ec263477353c5c0ebf4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreWordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Palabra creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Word"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al crear la palabra"
+                    }
+                }
+            }
+        },
+        "/words/bulk": {
+            "post": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Insertar palabras en lote",
+                "description": "Permite insertar múltiples palabras en una sola petición.",
+                "operationId": "2af6c4af4e8d75e479f3ac6541864350",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkWordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Palabras insertadas correctamente"
+                    }
+                }
+            }
+        },
+        "/words/{id}": {
+            "get": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Obtener palabra",
+                "description": "Devuelve una palabra específica por ID.",
+                "operationId": "5da65b25ecec7a3c524c2743e88038bb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la palabra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle de la palabra",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Word"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Palabra no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Actualizar palabra",
+                "description": "Actualiza una palabra existente.",
+                "operationId": "f78c3cfe9984581a3286837e0a9d1f23",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la palabra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateWordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Palabra actualizada correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Word"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al actualizar la palabra"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Words"
+                ],
+                "summary": "Eliminar palabra",
+                "description": "Elimina una palabra por ID.",
+                "operationId": "545b998feda6002944a4413f4ac92bdd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la palabra",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Palabra eliminada correctamente"
+                    },
+                    "500": {
+                        "description": "Error al eliminar la palabra"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BulkWordRequest": {
+                "title": "Bulk Word Request",
+                "description": "Lista de palabras a crear en una sola petición",
+                "type": "array",
+                "items": {
+                    "required": [
+                        "letter",
+                        "word",
+                        "definition",
+                        "sentence",
+                        "spanishSentence"
+                    ],
+                    "properties": {
+                        "subCategoryId": {
+                            "description": "ID de la subcategoría asociada (opcional)",
+                            "type": "integer",
+                            "example": 3,
+                            "nullable": true
+                        },
+                        "letter": {
+                            "description": "Letra inicial de la palabra",
+                            "type": "string",
+                            "example": "C"
+                        },
+                        "word": {
+                            "description": "Palabra registrada",
+                            "type": "string",
+                            "example": "Casa"
+                        },
+                        "definition": {
+                            "description": "Definición de la palabra (array de definiciones)",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "Lugar para habitar",
+                                "Edificación destinada a vivienda"
+                            ]
+                        },
+                        "sentence": {
+                            "description": "Oración en otro idioma con la palabra",
+                            "type": "string",
+                            "example": "The house is big."
+                        },
+                        "spanishSentence": {
+                            "description": "Oración en español con la palabra",
+                            "type": "string",
+                            "example": "La casa es grande."
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "StoreSubCategoryRequest": {
+                "title": "Store SubCategory Request",
+                "description": "Datos necesarios para crear una subcategoría",
+                "required": [
+                    "subCategory"
+                ],
+                "properties": {
+                    "categoryId": {
+                        "description": "ID de la categoría padre (opcional)",
+                        "type": "integer",
+                        "example": 2,
+                        "nullable": true
+                    },
+                    "subCategory": {
+                        "description": "Nombre de la subcategoría",
+                        "type": "string",
+                        "example": "Animales"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreWordRequest": {
+                "title": "Store Word Request",
+                "description": "Datos necesarios para crear una palabra",
+                "required": [
+                    "subCategoryId",
+                    "letter",
+                    "word",
+                    "definition",
+                    "spanishSentence",
+                    "sentence"
+                ],
+                "properties": {
+                    "subCategoryId": {
+                        "description": "ID de la subcategoría asociada",
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "letter": {
+                        "description": "Letra inicial de la palabra",
+                        "type": "string",
+                        "example": "A"
+                    },
+                    "word": {
+                        "description": "Palabra registrada",
+                        "type": "string",
+                        "example": "Árbol"
+                    },
+                    "definition": {
+                        "description": "Definición de la palabra",
+                        "type": "string",
+                        "example": "Planta perenne con tallo leñoso que se ramifica a cierta altura del suelo."
+                    },
+                    "spanishSentence": {
+                        "description": "Oración en español con la palabra",
+                        "type": "string",
+                        "example": "El árbol da sombra en verano."
+                    },
+                    "sentence": {
+                        "description": "Oración en otro idioma con la palabra",
+                        "type": "string",
+                        "example": "The tree gives shade in summer."
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateSubCategoryRequest": {
+                "title": "Update SubCategory Request",
+                "description": "Datos para actualizar una subcategoría",
+                "properties": {
+                    "categoryId": {
+                        "description": "ID de la categoría padre (opcional)",
+                        "type": "integer",
+                        "example": 3,
+                        "nullable": true
+                    },
+                    "subCategory": {
+                        "description": "Nombre actualizado de la subcategoría",
+                        "type": "string",
+                        "example": "Animales Domésticos"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateWordRequest": {
+                "title": "Update Word Request",
+                "description": "Datos permitidos para actualizar una palabra",
+                "properties": {
+                    "subCategoryId": {
+                        "description": "ID de la subcategoría asociada (opcional)",
+                        "type": "integer",
+                        "example": 5,
+                        "nullable": true
+                    },
+                    "letter": {
+                        "description": "Letra inicial de la palabra",
+                        "type": "string",
+                        "example": "B"
+                    },
+                    "word": {
+                        "description": "Palabra registrada",
+                        "type": "string",
+                        "example": "Barco"
+                    },
+                    "definition": {
+                        "description": "Definición de la palabra",
+                        "type": "string",
+                        "example": "Embarcación de gran tamaño destinada a navegar."
+                    },
+                    "sentence": {
+                        "description": "Oración en otro idioma con la palabra",
+                        "type": "string",
+                        "example": "The ship sails at dawn."
+                    },
+                    "spanishSentence": {
+                        "description": "Oración en español con la palabra",
+                        "type": "string",
+                        "example": "El barco zarpa al amanecer."
+                    }
+                },
+                "type": "object"
+            },
+            "Category": {
+                "title": "Category",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ejemplo"
+                    },
+                    "subcategories": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Category"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "SubCategory": {
+                "title": "SubCategory",
+                "description": "Modelo de SubCategory",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "subcategory": {
+                        "type": "string",
+                        "example": "Animales"
+                    },
+                    "category": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/Category"
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "words": {
+                        "description": "Lista de palabras relacionadas",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Word"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-05T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-05T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Word": {
+                "title": "Word",
+                "description": "Modelo de palabras asociadas a una subcategoría",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "sub_category_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "letter": {
+                        "type": "string",
+                        "maxLength": 1,
+                        "example": "A"
+                    },
+                    "word": {
+                        "type": "string",
+                        "example": "Apple"
+                    },
+                    "definition": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": [
+                            "A fruit",
+                            "A tech company"
+                        ]
+                    },
+                    "spanish_sentence": {
+                        "type": "string",
+                        "example": "La manzana es una fruta."
+                    },
+                    "sentence": {
+                        "type": "string",
+                        "example": "Apple is a leading tech company."
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-05T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-05T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
+        {
+            "name": "SubCategories",
+            "description": "SubCategories"
+        },
+        {
+            "name": "Words",
+            "description": "Words"
+        }
+    ]
+}

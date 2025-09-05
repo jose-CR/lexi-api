@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\frontend\CategoryController;
 use App\Http\Controllers\admin\frontend\SubCategoryController;
 use App\Http\Controllers\admin\frontend\WordController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ScalarController;
+use Illuminate\Support\Facades\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +85,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::delete('delete/{word}', [WordController::class, 'destroy'])->name('word.destroy');
     });
+});
+
+# RUTAS DE LA DOCUMENTACION 
+
+Route::group([
+    'domain' => config('scalar.domain', null),
+    'prefix' => config('scalar.path'),
+    'middleware' => config('scalar.middleware', 'web'),
+], function () {
+    Route::get('docs', ScalarController::class)->name('scalar');
+});
+
+Route::get('/openapi.json', function () {
+$path = storage_path('api-docs/api-docs.json');
+
+if (!File::exists($path)) {
+    abort(404, 'OpenAPI file not found');
+}
+
+return response()->json(
+    json_decode(File::get($path), true)
+);
 });
 
 require __DIR__.'/auth.php';
