@@ -12,7 +12,7 @@
                     "Categories"
                 ],
                 "summary": "Listar todas las categorías",
-                "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
+                "operationId": "af1e55cb4deaf80637707d692c1f96ac",
                 "parameters": [
                     {
                         "name": "includeSubCategories",
@@ -49,7 +49,7 @@
                 ],
                 "summary": "Crear una nueva categoría",
                 "description": "Crea una categoría con los datos enviados",
-                "operationId": "bb02f0320882db37f99574196577e446",
+                "operationId": "ce9aa4dc3e7af24b7de3f6cece8f01e1",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -110,7 +110,7 @@
                 ],
                 "summary": "Obtener una categoría",
                 "description": "Devuelve los detalles de una categoría, con opción de incluir subcategorías",
-                "operationId": "4cdf41756315109f1efc72787db5830a",
+                "operationId": "b1e75677b2083bbe1dfd35f3fa25f820",
                 "parameters": [
                     {
                         "name": "id",
@@ -155,7 +155,7 @@
                 ],
                 "summary": "Actualizar una categoría",
                 "description": "Actualiza los datos de una categoría existente",
-                "operationId": "19954b1f8aa4916b5f032dc28ea36a24",
+                "operationId": "69e01494e20260efe836c0e3a5c4c3d2",
                 "parameters": [
                     {
                         "name": "id",
@@ -226,7 +226,7 @@
                 ],
                 "summary": "Eliminar una categoría",
                 "description": "Elimina la categoría especificada",
-                "operationId": "f1b8af6e84bd52b9594d98bde748ebd6",
+                "operationId": "3758013e1d9a10240e6acfd39b878355",
                 "parameters": [
                     {
                         "name": "id",
@@ -280,7 +280,7 @@
                 ],
                 "summary": "Listar todas las subcategorías",
                 "description": "Muestra un listado paginado de subcategorías. Puede incluir palabras relacionadas si se solicita.",
-                "operationId": "af5fa99dc8b91fbd76ed4dda483bb262",
+                "operationId": "a4031afb0a2486cfba1fa884c7bf1416",
                 "parameters": [
                     {
                         "name": "includeWords",
@@ -404,7 +404,7 @@
                     "SubCategories"
                 ],
                 "summary": "Crear una nueva subcategoría",
-                "operationId": "989d9644fbfa7bed6f668dc610fca376",
+                "operationId": "2fcc5cf4ef8696935b9b3c87ec49e926",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -476,7 +476,7 @@
                     "SubCategories"
                 ],
                 "summary": "Mostrar subcategoría específica",
-                "operationId": "7251f65317205d667635726d0c6ecb6f",
+                "operationId": "d9127e4dbf53fb6ab94688eac92dafb2",
                 "parameters": [
                     {
                         "name": "id",
@@ -516,7 +516,7 @@
                     "SubCategories"
                 ],
                 "summary": "Actualizar una subcategoría",
-                "operationId": "f668518b5ec574147ddebf8e9bef3f12",
+                "operationId": "5aa4f75c6744f0919c567f4630646fdd",
                 "parameters": [
                     {
                         "name": "id",
@@ -597,7 +597,7 @@
                     "SubCategories"
                 ],
                 "summary": "Eliminar una subcategoría",
-                "operationId": "8e60e7000b7e0a572f6fd9653f04dda2",
+                "operationId": "e2f788bdcbddb57efcd0b28838d84c3a",
                 "parameters": [
                     {
                         "name": "id",
@@ -671,7 +671,7 @@
                 ],
                 "summary": "Listar palabras",
                 "description": "Devuelve un listado paginado de palabras con filtros opcionales.",
-                "operationId": "7aa8ed979f6c20fcace5fd0d07c6eb79",
+                "operationId": "49ba09a7da8a0177253ca717ca18a963",
                 "parameters": [
                     {
                         "name": "page",
@@ -774,7 +774,7 @@
                 ],
                 "summary": "Crear palabra",
                 "description": "Crea una nueva palabra en el sistema.",
-                "operationId": "9af65a00dee64ec263477353c5c0ebf4",
+                "operationId": "37ee48840b31ce03ac9991e02e991d3c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -809,7 +809,7 @@
                 ],
                 "summary": "Insertar palabras en lote",
                 "description": "Permite insertar múltiples palabras en una sola petición.",
-                "operationId": "2af6c4af4e8d75e479f3ac6541864350",
+                "operationId": "2fd894ed95cd41422f06834609e13961",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -834,7 +834,7 @@
                 ],
                 "summary": "Obtener palabra",
                 "description": "Devuelve una palabra específica por ID.",
-                "operationId": "5da65b25ecec7a3c524c2743e88038bb",
+                "operationId": "a966d752dc7ef69eb668892e80798381",
                 "parameters": [
                     {
                         "name": "id",
@@ -869,7 +869,7 @@
                 ],
                 "summary": "Actualizar palabra",
                 "description": "Actualiza una palabra existente.",
-                "operationId": "f78c3cfe9984581a3286837e0a9d1f23",
+                "operationId": "b5543ebb331405a048fb547076d84e70",
                 "parameters": [
                     {
                         "name": "id",
@@ -914,7 +914,7 @@
                 ],
                 "summary": "Eliminar palabra",
                 "description": "Elimina una palabra por ID.",
-                "operationId": "545b998feda6002944a4413f4ac92bdd",
+                "operationId": "bcf0b8856e00fd288594e7547306d160",
                 "parameters": [
                     {
                         "name": "id",
@@ -940,182 +940,6 @@
     },
     "components": {
         "schemas": {
-            "BulkWordRequest": {
-                "title": "Bulk Word Request",
-                "description": "Lista de palabras a crear en una sola petición",
-                "type": "array",
-                "items": {
-                    "required": [
-                        "letter",
-                        "word",
-                        "definition",
-                        "sentence",
-                        "spanishSentence"
-                    ],
-                    "properties": {
-                        "subCategoryId": {
-                            "description": "ID de la subcategoría asociada (opcional)",
-                            "type": "integer",
-                            "example": 3,
-                            "nullable": true
-                        },
-                        "letter": {
-                            "description": "Letra inicial de la palabra",
-                            "type": "string",
-                            "example": "C"
-                        },
-                        "word": {
-                            "description": "Palabra registrada",
-                            "type": "string",
-                            "example": "Casa"
-                        },
-                        "definition": {
-                            "description": "Definición de la palabra (array de definiciones)",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "example": [
-                                "Lugar para habitar",
-                                "Edificación destinada a vivienda"
-                            ]
-                        },
-                        "sentence": {
-                            "description": "Oración en otro idioma con la palabra",
-                            "type": "string",
-                            "example": "The house is big."
-                        },
-                        "spanishSentence": {
-                            "description": "Oración en español con la palabra",
-                            "type": "string",
-                            "example": "La casa es grande."
-                        }
-                    },
-                    "type": "object"
-                }
-            },
-            "StoreSubCategoryRequest": {
-                "title": "Store SubCategory Request",
-                "description": "Datos necesarios para crear una subcategoría",
-                "required": [
-                    "subCategory"
-                ],
-                "properties": {
-                    "categoryId": {
-                        "description": "ID de la categoría padre (opcional)",
-                        "type": "integer",
-                        "example": 2,
-                        "nullable": true
-                    },
-                    "subCategory": {
-                        "description": "Nombre de la subcategoría",
-                        "type": "string",
-                        "example": "Animales"
-                    }
-                },
-                "type": "object"
-            },
-            "StoreWordRequest": {
-                "title": "Store Word Request",
-                "description": "Datos necesarios para crear una palabra",
-                "required": [
-                    "subCategoryId",
-                    "letter",
-                    "word",
-                    "definition",
-                    "spanishSentence",
-                    "sentence"
-                ],
-                "properties": {
-                    "subCategoryId": {
-                        "description": "ID de la subcategoría asociada",
-                        "type": "integer",
-                        "example": 5
-                    },
-                    "letter": {
-                        "description": "Letra inicial de la palabra",
-                        "type": "string",
-                        "example": "A"
-                    },
-                    "word": {
-                        "description": "Palabra registrada",
-                        "type": "string",
-                        "example": "Árbol"
-                    },
-                    "definition": {
-                        "description": "Definición de la palabra",
-                        "type": "string",
-                        "example": "Planta perenne con tallo leñoso que se ramifica a cierta altura del suelo."
-                    },
-                    "spanishSentence": {
-                        "description": "Oración en español con la palabra",
-                        "type": "string",
-                        "example": "El árbol da sombra en verano."
-                    },
-                    "sentence": {
-                        "description": "Oración en otro idioma con la palabra",
-                        "type": "string",
-                        "example": "The tree gives shade in summer."
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateSubCategoryRequest": {
-                "title": "Update SubCategory Request",
-                "description": "Datos para actualizar una subcategoría",
-                "properties": {
-                    "categoryId": {
-                        "description": "ID de la categoría padre (opcional)",
-                        "type": "integer",
-                        "example": 3,
-                        "nullable": true
-                    },
-                    "subCategory": {
-                        "description": "Nombre actualizado de la subcategoría",
-                        "type": "string",
-                        "example": "Animales Domésticos"
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateWordRequest": {
-                "title": "Update Word Request",
-                "description": "Datos permitidos para actualizar una palabra",
-                "properties": {
-                    "subCategoryId": {
-                        "description": "ID de la subcategoría asociada (opcional)",
-                        "type": "integer",
-                        "example": 5,
-                        "nullable": true
-                    },
-                    "letter": {
-                        "description": "Letra inicial de la palabra",
-                        "type": "string",
-                        "example": "B"
-                    },
-                    "word": {
-                        "description": "Palabra registrada",
-                        "type": "string",
-                        "example": "Barco"
-                    },
-                    "definition": {
-                        "description": "Definición de la palabra",
-                        "type": "string",
-                        "example": "Embarcación de gran tamaño destinada a navegar."
-                    },
-                    "sentence": {
-                        "description": "Oración en otro idioma con la palabra",
-                        "type": "string",
-                        "example": "The ship sails at dawn."
-                    },
-                    "spanishSentence": {
-                        "description": "Oración en español con la palabra",
-                        "type": "string",
-                        "example": "El barco zarpa al amanecer."
-                    }
-                },
-                "type": "object"
-            },
             "Category": {
                 "title": "Category",
                 "required": [
@@ -1184,6 +1008,45 @@
                 },
                 "type": "object"
             },
+            "StoreSubCategoryRequest": {
+                "title": "Store SubCategory Request",
+                "description": "Datos necesarios para crear una subcategoría",
+                "required": [
+                    "subCategory"
+                ],
+                "properties": {
+                    "categoryId": {
+                        "description": "ID de la categoría padre (opcional)",
+                        "type": "integer",
+                        "example": 2,
+                        "nullable": true
+                    },
+                    "subCategory": {
+                        "description": "Nombre de la subcategoría",
+                        "type": "string",
+                        "example": "Animales"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateSubCategoryRequest": {
+                "title": "Update SubCategory Request",
+                "description": "Datos para actualizar una subcategoría",
+                "properties": {
+                    "categoryId": {
+                        "description": "ID de la categoría padre (opcional)",
+                        "type": "integer",
+                        "example": 3,
+                        "nullable": true
+                    },
+                    "subCategory": {
+                        "description": "Nombre actualizado de la subcategoría",
+                        "type": "string",
+                        "example": "Animales Domésticos"
+                    }
+                },
+                "type": "object"
+            },
             "Word": {
                 "title": "Word",
                 "description": "Modelo de palabras asociadas a una subcategoría",
@@ -1232,6 +1095,143 @@
                         "type": "string",
                         "format": "date-time",
                         "example": "2025-09-05T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreWordRequest": {
+                "title": "Store Word Request",
+                "description": "Datos necesarios para crear una palabra",
+                "required": [
+                    "subCategoryId",
+                    "letter",
+                    "word",
+                    "definition",
+                    "spanishSentence",
+                    "sentence"
+                ],
+                "properties": {
+                    "subCategoryId": {
+                        "description": "ID de la subcategoría asociada",
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "letter": {
+                        "description": "Letra inicial de la palabra",
+                        "type": "string",
+                        "example": "A"
+                    },
+                    "word": {
+                        "description": "Palabra registrada",
+                        "type": "string",
+                        "example": "Árbol"
+                    },
+                    "definition": {
+                        "description": "Definición de la palabra",
+                        "type": "string",
+                        "example": "Planta perenne con tallo leñoso que se ramifica a cierta altura del suelo."
+                    },
+                    "spanishSentence": {
+                        "description": "Oración en español con la palabra",
+                        "type": "string",
+                        "example": "El árbol da sombra en verano."
+                    },
+                    "sentence": {
+                        "description": "Oración en otro idioma con la palabra",
+                        "type": "string",
+                        "example": "The tree gives shade in summer."
+                    }
+                },
+                "type": "object"
+            },
+            "BulkWordRequest": {
+                "title": "Bulk Word Request",
+                "description": "Lista de palabras a crear en una sola petición",
+                "type": "array",
+                "items": {
+                    "required": [
+                        "letter",
+                        "word",
+                        "definition",
+                        "sentence",
+                        "spanishSentence"
+                    ],
+                    "properties": {
+                        "subCategoryId": {
+                            "description": "ID de la subcategoría asociada (opcional)",
+                            "type": "integer",
+                            "example": 3,
+                            "nullable": true
+                        },
+                        "letter": {
+                            "description": "Letra inicial de la palabra",
+                            "type": "string",
+                            "example": "C"
+                        },
+                        "word": {
+                            "description": "Palabra registrada",
+                            "type": "string",
+                            "example": "Casa"
+                        },
+                        "definition": {
+                            "description": "Definición de la palabra (array de definiciones)",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": [
+                                "Lugar para habitar",
+                                "Edificación destinada a vivienda"
+                            ]
+                        },
+                        "sentence": {
+                            "description": "Oración en otro idioma con la palabra",
+                            "type": "string",
+                            "example": "The house is big."
+                        },
+                        "spanishSentence": {
+                            "description": "Oración en español con la palabra",
+                            "type": "string",
+                            "example": "La casa es grande."
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "UpdateWordRequest": {
+                "title": "Update Word Request",
+                "description": "Datos permitidos para actualizar una palabra",
+                "properties": {
+                    "subCategoryId": {
+                        "description": "ID de la subcategoría asociada (opcional)",
+                        "type": "integer",
+                        "example": 5,
+                        "nullable": true
+                    },
+                    "letter": {
+                        "description": "Letra inicial de la palabra",
+                        "type": "string",
+                        "example": "B"
+                    },
+                    "word": {
+                        "description": "Palabra registrada",
+                        "type": "string",
+                        "example": "Barco"
+                    },
+                    "definition": {
+                        "description": "Definición de la palabra",
+                        "type": "string",
+                        "example": "Embarcación de gran tamaño destinada a navegar."
+                    },
+                    "sentence": {
+                        "description": "Oración en otro idioma con la palabra",
+                        "type": "string",
+                        "example": "The ship sails at dawn."
+                    },
+                    "spanishSentence": {
+                        "description": "Oración en español con la palabra",
+                        "type": "string",
+                        "example": "El barco zarpa al amanecer."
                     }
                 },
                 "type": "object"

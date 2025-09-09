@@ -45,9 +45,8 @@ return [
                  */
                 'annotations' => [
                     base_path('app'),
-                    base_path('app/Http/Controllers'),
-                    base_path('app/Models'),
-                    base_path('app/Http/Controllers/Swagger'),
+                    base_path('app/Swagger'),
+                    base_path('app/Swagger/Schemas'),
                 ],
             ],
         ],

@@ -4,27 +4,6 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
-/**
- * @OA\Schema(
- *     schema="UpdateSubCategoryRequest",
- *     title="Update SubCategory Request",
- *     description="Datos para actualizar una subcategoría",
- *     @OA\Property(
- *         property="categoryId",
- *         type="integer",
- *         nullable=true,
- *         example=3,
- *         description="ID de la categoría padre (opcional)"
- *     ),
- *     @OA\Property(
- *         property="subCategory",
- *         type="string",
- *         example="Animales Domésticos",
- *         description="Nombre actualizado de la subcategoría"
- *     )
- * )
- */
 class UpdateSubCategoryRequest extends FormRequest
 {
     /**

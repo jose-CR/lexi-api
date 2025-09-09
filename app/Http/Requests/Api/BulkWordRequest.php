@@ -4,57 +4,6 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
-/**
-     * @OA\Schema(
-     *     schema="BulkWordRequest",
-     *     title="Bulk Word Request",
-     *     description="Lista de palabras a crear en una sola petición",
-     *     type="array",
-     *     @OA\Items(
-     *         type="object",
-     *         required={"letter", "word", "definition", "sentence", "spanishSentence"},
-     *         @OA\Property(
-     *             property="subCategoryId",
-     *             type="integer",
-     *             nullable=true,
-     *             example=3,
-     *             description="ID de la subcategoría asociada (opcional)"
-     *         ),
-     *         @OA\Property(
-     *             property="letter",
-     *             type="string",
-     *             example="C",
-     *             description="Letra inicial de la palabra"
-     *         ),
-     *         @OA\Property(
-     *             property="word",
-     *             type="string",
-     *             example="Casa",
-     *             description="Palabra registrada"
-     *         ),
-     *         @OA\Property(
-     *             property="definition",
-     *             type="array",
-     *             @OA\Items(type="string"),
-     *             example={"Lugar para habitar", "Edificación destinada a vivienda"},
-     *             description="Definición de la palabra (array de definiciones)"
-     *         ),
-     *         @OA\Property(
-     *             property="sentence",
-     *             type="string",
-     *             example="The house is big.",
-     *             description="Oración en otro idioma con la palabra"
-     *         ),
-     *         @OA\Property(
-     *             property="spanishSentence",
-     *             type="string",
-     *             example="La casa es grande.",
-     *             description="Oración en español con la palabra"
-     *         )
-     *     )
-     * )
-     */
 class BulkWordRequest extends FormRequest
 {
     /**
