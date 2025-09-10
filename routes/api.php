@@ -5,6 +5,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\WordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //lexi api
 
-Route::group(['prefix' => 'v1'], function(){
-
+Route::group(['prefix' => 'v1', 'middleware' => 'auth.jwt:index,show'], function(){
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('subcategories', SubCategoryController::class);
     Route::apiResource('words', WordController::class);
     Route::post('words/bulk', [WordController::class, 'bulkStore']);
-
 });
