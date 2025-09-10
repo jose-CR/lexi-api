@@ -26,7 +26,7 @@ class CategoryController
 {
     /**
      * @OA\Get(
-     *     path="/api/categories",
+     *     path="/categories",
      *     summary="Listar todas las categorías",
      *     tags={"Categories"},
      *     @OA\Parameter(
@@ -52,40 +52,6 @@ class CategoryController
     public function indexInfo()
     {
 
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/categories",
-     *     summary="Crear una nueva categoría",
-     *     description="Crea una categoría con los datos enviados",
-     *     tags={"Categories"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name"},
-     *             @OA\Property(property="name", type="string", example="Nueva categoría")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Categoría creada correctamente",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="color", type="string", example="green"),
-     *             @OA\Property(property="message", type="string", example="✅ Se ha creado una nueva categoría correctamente."),
-     *             @OA\Property(property="data", ref="#/components/schemas/Category")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Error al crear la categoría"
-     *     )
-     * )
-     */
-    public function storeInfo()
-    {
-    
     }
 
     /**
@@ -123,82 +89,4 @@ class CategoryController
     {
 
     }
-
-    /**
-     * @OA\Put(
-     *     path="/categories/{id}",
-     *     summary="Actualizar una categoría",
-     *     description="Actualiza los datos de una categoría existente",
-     *     tags={"Categories"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID de la categoría",
-     *         @OA\Schema(type="integer", example=1)
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"name"},
-     *             @OA\Property(property="name", type="string", example="Categoría Actualizada")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Categoría actualizada correctamente",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="color", type="string", example="green"),
-     *             @OA\Property(property="message", type="string", example="✅ Categoría actualizada correctamente."),
-     *             @OA\Property(property="data", ref="#/components/schemas/Category")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Error al actualizar la categoría"
-     *     )
-     * )
-     */
-    public function updateInfo()
-    {
-
-    }
-
-    /**
-     * @OA\Delete(
-     *     path="/categories/{id}",
-     *     summary="Eliminar una categoría",
-     *     description="Elimina la categoría especificada",
-     *     tags={"Categories"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID de la categoría",
-     *         @OA\Schema(type="integer", example=1)
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Categoría eliminada correctamente",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="color", type="string", example="green"),
-     *             @OA\Property(property="message", type="string", example="✅ La Categoria se ha eliminado exitosamente"),
-     *             @OA\Property(property="data", ref="#/components/schemas/Category")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Error al eliminar la categoría"
-     *     )
-     * )
-     */
-    public function destroyInfo()
-    {
-
-    }
 }
-
-
-
