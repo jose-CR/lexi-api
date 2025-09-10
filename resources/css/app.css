@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ====== Componentes reutilizables ====== */
+@layer components {
+  .dropbtn-common {
+    @apply px-5 py-2 w-full text-left rounded-lg shadow-md text-white transition;
+  }
+
+  .dropdown-menu {
+    @apply hidden mt-2 w-full rounded-lg shadow-lg bg-gray-700 ring-1 ring-black/20 z-10;
+  }
+
+  .dropdown-menu a {
+    @apply block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 transition;
+  }
+
+  .card {
+    @apply bg-gray-800 p-6 rounded-lg shadow-md mb-6 border border-gray-700;
+  }
+}

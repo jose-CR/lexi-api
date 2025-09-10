@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Log;
 
-use function Laravel\Prompts\error;
-
 class Word extends Model
 {
     use HasFactory;

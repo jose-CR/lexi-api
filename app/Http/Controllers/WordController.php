@@ -93,7 +93,6 @@ class WordController extends Controller
         ]);
     }
     
-
     public function show(Word $word){
         return new WordResource($word);
     }
@@ -123,7 +122,6 @@ class WordController extends Controller
             'data' => new WordResource($word)
         ], 200);
     }
-
 
     public function destroy(Word $word){
         $deleted = $word->delete();
