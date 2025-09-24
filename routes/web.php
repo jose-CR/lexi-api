@@ -83,6 +83,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('edit/{id}', [WordController::class, 'editShow'])->name('word-edit');
         Route::patch('edit/{id}', [WordController::class, 'update'])->name('word.edit');
 
+        #forma verbal
+        Route::get('form-verb', [WordController::class, 'formVerb'])->name('word-formverb');
+
         Route::delete('delete/{word}', [WordController::class, 'destroy'])->name('word.destroy');
     });
 });

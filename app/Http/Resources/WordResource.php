@@ -21,7 +21,8 @@ class WordResource extends JsonResource
             'word' => $this->word,
             'definition' => $this->definition,
             'sentence' => $this->sentence,
-            'spanishSentence' => $this->spanish_sentence
+            'spanishSentence' => $this->spanish_sentence,
+            'times' => $this->times,
         ];
     }
 }

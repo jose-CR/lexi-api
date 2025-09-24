@@ -15,11 +15,11 @@ class Table extends Component
     public string $orderBy = 'id';
     public string $orderDir = 'asc';
     public $search = '';
-    public string $button = "Crear";
+    public ?string $button = null;
 
     protected $updatesQueryString = ['search'];
 
-    public function mount(array $columns = [], array $links = [], string $model, array $searchColumns = [], string $button): void
+    public function mount(array $columns = [], array $links = [], string $model, array $searchColumns = [], ?string $button = null): void
     {
         $this->columns = $columns;
         $this->links = $links;

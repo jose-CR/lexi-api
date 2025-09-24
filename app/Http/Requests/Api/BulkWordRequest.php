@@ -28,6 +28,7 @@ class BulkWordRequest extends FormRequest
             '*.definition' => ['required', 'string', 'min:1'],
             '*.sentence' => ['required', 'string', 'min:1', 'max:255'],
             '*.spanishSentence' => ['required', 'string', 'min:1', 'max:255'],
+            '*.times' => ['nullable', 'array'],
         ];
     }
 

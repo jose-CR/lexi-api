@@ -17,18 +17,32 @@ class WordFactory extends Factory
     public function definition(): array
     {
         $letter = $this->faker->randomLetter();
-
         $word = $this->faker->word();
-
         $definition = json_encode([
             $this->faker->word(),
             $this->faker->word(),
             $this->faker->word(),
         ]);
-
         $spanishSentence = $this->faker->sentence();
-
         $sentence = $this->faker->sentence();
+        if ($this->faker->boolean(50)) {
+            $times = collect(['pasado', 'ing'])
+                ->mapWithKeys(function ($key) {
+                    return [
+                        $key => [
+                            'definition' => [
+                                $this->faker->word(),
+                                $this->faker->word(),
+                                $this->faker->word(),
+                            ],
+                            'spanishSentence' => $this->faker->sentence(),
+                            'sentence' => $this->faker->sentence(),
+                        ],
+                    ];
+                })->toArray();
+        } else {
+            $times = null;
+        }
 
         return [
             'letter' => $letter,
@@ -36,6 +50,7 @@ class WordFactory extends Factory
             'definition' => $definition,
             'spanish_sentence' => $spanishSentence,
             'sentence' => $sentence,
+            'times' => $times,
         ];
     }
 }

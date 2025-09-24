@@ -11,9 +11,9 @@ class Word extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sub_category_id', 'letter', 'word', 'definition', 'spanish_sentence', 'sentence'];
+    protected $fillable = ['sub_category_id', 'letter', 'word', 'definition', 'spanish_sentence', 'sentence', 'times'];
 
-    protected $casts = ['definition' => 'array'];
+    protected $casts = ['definition' => 'array', 'times' => 'array'];
 
     public function subcategory(): BelongsTo{
         return $this->belongsTo(SubCategory::class);

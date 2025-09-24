@@ -27,7 +27,8 @@ class StoreWordRequest extends FormRequest
             'word' => ['required', 'string', 'min:1', 'max:255'],
             'definition' => ['required', 'string', 'min:1'],
             'spanishSentence' => ['required', 'string', 'min:1', 'max:255'],
-            'sentence' => ['required', 'string', 'min:1', 'max:255']
+            'sentence' => ['required', 'string', 'min:1', 'max:255'],
+            'times' => ['nullable', 'array']
         ];
     }
 

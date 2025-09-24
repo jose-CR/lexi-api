@@ -23,6 +23,7 @@ class UpdateWordRequest extends FormRequest
                 'definition' => ['required', 'string', 'min:1'],
                 'sentence' => ['required', 'string', 'min:1', 'max:255'],
                 'spanish_sentence' => ['required', 'string', 'min:1', 'max:255'],
+                'times' => ['required', 'array'],
             ];
         }elseif($method == 'PATCH'){
             return [
@@ -32,6 +33,7 @@ class UpdateWordRequest extends FormRequest
                 'definition' => ['sometimes', 'string', 'min:1'],
                 'sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
                 'spanish_sentence' => ['sometimes', 'string', 'min:1', 'max:255'],
+                'times' => ['sometimes', 'nullable', 'array'],
             ];   
         }
 
