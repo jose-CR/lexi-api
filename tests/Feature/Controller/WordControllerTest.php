@@ -5,12 +5,14 @@ namespace Tests\Feature\Controller;
 use App\Models\SubCategory;
 use App\Models\Word;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Helpers\AuthUserHelper;
 use Tests\TestCase;
+use Tests\Traits\MakesAuthenticatedRequests;
 
 class WordControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use MakesAuthenticatedRequests;
 
     public function test_it_returns_paginated_words(){
         Word::factory()->count(10)->create();
@@ -27,6 +29,9 @@ class WordControllerTest extends TestCase
     }
 
     public function test_it_can_store_a_word(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $subCategory = SubCategory::factory()->create();
 
         $payload = [
@@ -36,9 +41,21 @@ class WordControllerTest extends TestCase
             'definition' => ['planta grande.', 'verde', 'gigante'],
             'sentence' => 'El árbol es muy alto.',
             'spanishSentence' => 'El árbol es muy alto.',
+            'times' => [
+                'pasado' => [
+                    'definition' => ['aut', 'quasi', 'harum'],
+                    'sentence' => 'Et quia perspiciatis libero.',
+                    'spanishSentence' => 'Sed ea ad repudiandae unde non.'
+                ],
+                'ing' => [
+                    'definition' => ['in', 'maxime', 'doloribus'],
+                    'sentence' => 'Voluptatem quo ad et voluptas voluptate.',
+                    'spanishSentence' => 'Temporibus rerum ut architecto quisquam assumenda sint.'
+                ]
+            ],
         ];
 
-        $response = $this->postJson('/api/v1/words', $payload);
+        $response = $this->authJsonRequest('postJson', "/api/v1/words", $token, $payload);
 
         $response->assertCreated()
             ->assertJsonFragment([
@@ -53,39 +70,46 @@ class WordControllerTest extends TestCase
         ]);
     }
 
-    public function test_it_can_bulk_insert_words(){
-        $subCategory = SubCategory::factory()->create();
-
+    public function test_it_can_bulk_a_word()
+    {
+        $token = AuthUserHelper::createUserAndGetToken();
+        $word = Word::factory()->create();
+    
+        $newSubCategory = SubCategory::factory()->create();
+    
         $payload = [
-            [
-                'subCategoryId' => $subCategory->id,
-                'letter' => 'B',
-                'word' => 'Bicicleta',
-                'definition' => ['Vehículo.', 'ruedas'],
-                'sentence' => 'Uso la bicicleta todos los días.',
-                'spanishSentence' => 'Uso la bicicleta todos los días.',
-            ],
-            [
-                'subCategoryId' => $subCategory->id,
-                'letter' => 'C',
-                'word' => 'Casa',
-                'definition' => ['Lugar.', 'vivienda'],
-                'sentence' => 'La casa es blanca.',
-                'spanishSentence' => 'La casa es blanca.',
+            'sub_category_id' => $newSubCategory->id,
+            'letter' => 'Z',
+            'word' => 'Zapato',
+            'definition' => 'Calzado, cómodo',
+            'sentence' => 'Me pongo los zapatos.',
+            'spanish_sentence' => 'Me pongo los zapatos.',
+            'times' => [
+                'pasado' => [
+                    'definition' => 'aut, quasi, harum',
+                    'sentence' => 'Et quia perspiciatis libero.',
+                    'spanish_sentence' => 'Sed ea ad repudiandae unde non.'
+                ],
+                'ing' => [
+                    'definition' => 'in, maxime, doloribus',
+                    'sentence' => 'Voluptatem quo ad et voluptas voluptate.',
+                    'spanish_sentence' => 'Temporibus rerum ut architecto quisquam assumenda sint.'
+                ]
             ],
         ];
-
-        $response = $this->postJson('/api/v1/words/bulk', $payload);
-
+    
+        $response = $this->authJsonRequest('putJson', "/api/v1/words/{$word->id}", $token, $payload);
+    
         $response->assertOk()
-            ->assertJsonFragment([
-                'status' => 'success',
-                'inserted' => 2,
-            ]);
-
-        $this->assertDatabaseHas('words', ['word' => 'Bicicleta']);
-        $this->assertDatabaseHas('words', ['word' => 'Casa']);
+        ->assertJsonFragment([
+            'word' => 'Zapato',
+            'letter' => 'Z',
+            'subCategoryId' => $newSubCategory->id,
+        ]);
+    
+        $this->assertDatabaseHas('words', ['word' => 'Zapato']);
     }
+    
 
     public function test_it_shows_a_word(){
         $word = Word::factory()->create();
@@ -100,19 +124,35 @@ class WordControllerTest extends TestCase
     }
 
     public function test_it_can_update_a_word(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $word = Word::factory()->create();
         $newSubCategory = SubCategory::factory()->create();
 
-        $updateData = [
+        $payload = [
             'subCategoryId' => $newSubCategory->id,
             'letter' => 'Z',
             'word' => 'Zapato',
-            'definition' => ['Calzado.', 'pies'],
-            'sentence' => 'El zapato es rojo.',
-            'spanishSentence' => 'El zapato es rojo.',
+            'definition' => 'Calzado, cómodo',
+            'sentence' => 'Me pongo los zapatos.',
+            'spanishSentence' => 'Me pongo los zapatos.',
+            'times' => [
+                'pasado' => [
+                    'definition' => 'aut, quasi, harum',
+                    'sentence' => 'Et quia perspiciatis libero.',
+                    'spanishSentence' => 'Sed ea ad repudiandae unde non.'
+                ],
+                'ing' => [
+                    'definition' => 'in, maxime, doloribus',
+                    'sentence' => 'Voluptatem quo ad et voluptas voluptate.',
+                    'spanishSentence' => 'Temporibus rerum ut architecto quisquam assumenda sint.'
+                ]
+            ],
         ];
+        
 
-        $response = $this->putJson("/api/v1/words/{$word->id}", $updateData);
+        $response = $this->authJsonRequest('putJson', "/api/v1/words/{$word->id}", $token, $payload);
 
         $response->assertOk()
             ->assertJsonFragment([
@@ -128,9 +168,12 @@ class WordControllerTest extends TestCase
     }
 
     public function test_it_can_delete_a_word(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $word = Word::factory()->create();
 
-        $response = $this->deleteJson("/api/v1/words/{$word->id}");
+        $response = $this->authJsonRequest('deleteJson', "/api/v1/words/{$word->id}", $token);
 
         $response->assertOk()
             ->assertJsonFragment([

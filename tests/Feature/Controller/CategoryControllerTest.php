@@ -4,12 +4,14 @@ namespace Tests\Feature\Controller;
 
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Helpers\AuthUserHelper;
+use Tests\Traits\MakesAuthenticatedRequests;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use MakesAuthenticatedRequests;
 
     /** @test */
     public function it_returns_a_paginated_list_of_categories(){
@@ -28,15 +30,18 @@ class CategoryControllerTest extends TestCase
 
     /** @test */
     public function it_can_create_a_category(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $payload = ['category' => 'Naturaleza'];
 
-        $response = $this->postJson('/api/v1/categories', $payload);
+        $response = $this->authJsonRequest('postJson', '/api/v1/categories', $token, $payload);
 
         $response->assertCreated()
-            ->assertJsonFragment([
-                'message' => '✅ Se ha creado una nueva categoría correctamente.',
-                'category' => 'Naturaleza',
-            ]);
+        ->assertJsonFragment([
+            'message' => '✅ Se ha creado una nueva categoría correctamente.',
+            'category' => 'Naturaleza',
+        ]);
 
         $this->assertDatabaseHas('categories', ['category' => 'Naturaleza']);
     }
@@ -56,13 +61,16 @@ class CategoryControllerTest extends TestCase
 
     /** @test */
     public function it_can_update_a_category(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $category = Category::factory()->create([
             'category' => 'Original'
         ]);
 
         $payload = ['category' => 'Modificado'];
 
-        $response = $this->putJson("/api/v1/categories/{$category->id}", $payload);
+        $response = $this->authJsonRequest('putJson', "/api/v1/categories/{$category->id}", $token, $payload);
 
         $response->assertOk()
             ->assertJsonFragment([
@@ -75,9 +83,12 @@ class CategoryControllerTest extends TestCase
 
     /** @test */
     public function it_can_delete_a_category(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $category = Category::factory()->create();
 
-        $response = $this->deleteJson("/api/v1/categories/{$category->id}");
+        $response = $this->authJsonRequest('deleteJson', "/api/v1/categories/{$category->id}", $token);
 
         $response->assertOk()
             ->assertJsonFragment([

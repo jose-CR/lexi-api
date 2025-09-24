@@ -5,12 +5,14 @@ namespace Tests\Feature\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Helpers\AuthUserHelper;
 use Tests\TestCase;
+use Tests\Traits\MakesAuthenticatedRequests;
 
 class SubCategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use MakesAuthenticatedRequests;
 
     public function test_it_returns_paginated_subcategories(){
         SubCategory::factory()->count(10)->create();
@@ -27,14 +29,17 @@ class SubCategoryControllerTest extends TestCase
     }
 
     public function test_it_can_store_a_subcategory(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $category = Category::factory()->create();
 
         $payload = [
             'subCategory' => 'Animales',
             'categoryId' => $category->id,
         ];
-    
-        $response = $this->postJson('/api/v1/subcategories', $payload);
+
+        $response = $this->authJsonRequest('postJson', "/api/v1/subcategories", $token, $payload);
     
         $response->assertCreated()
             ->assertJsonFragment([
@@ -61,15 +66,18 @@ class SubCategoryControllerTest extends TestCase
     }
 
     public function test_it_can_update_a_subcategory(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $subcategory = SubCategory::factory()->create();
         $category = Category::factory()->create();
     
-        $updateData = [
+        $payload = [
             'subCategory' => 'Nueva Subcategoría',
             'categoryId' => $category->id,
         ];
-    
-        $response = $this->putJson("/api/v1/subcategories/{$subcategory->id}", $updateData);
+
+        $response = $this->authJsonRequest('putJson', "/api/v1/subcategories/{$subcategory->id}", $token, $payload);
     
         $response->assertOk()
             ->assertJsonFragment([
@@ -84,9 +92,12 @@ class SubCategoryControllerTest extends TestCase
     }
 
     public function test_it_can_delete_a_subcategory(){
+
+        $token = AuthUserHelper::createUserAndGetToken();
+
         $subcategory = SubCategory::factory()->create();
 
-        $response = $this->deleteJson("/api/v1/subcategories/{$subcategory->id}");
+        $response = $this->authJsonRequest('deleteJson', "/api/v1/subcategories/{$subcategory->id}", $token);
 
         $response->assertOk()
             ->assertJsonFragment([
