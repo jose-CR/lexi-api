@@ -65,7 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('store', [SubCategoryController::class, 'store'])->name('subcategory.store');
 
         Route::get('edit/{id}', [SubCategoryController::class, 'editShow'])->name('subcategory-edit');
-        Route::put('edit/{id}', [SubCategoryController::class, 'update'])->name('subcategory.edit');
+        Route::patch('edit/{id}', [SubCategoryController::class, 'update'])->name('subcategory.edit');
 
         Route::delete('delete/{subcategory}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
     });

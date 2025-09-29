@@ -2,8 +2,8 @@
     <x-guest-layout>
         <form id="categoryForm" action="{{ route('category.store') }}" method="POST">
             @csrf
-            <label for="category" class="block text-white">Category:</label>
-            <input type="text" id="category" name="category" value="{{''}}" placeholder="Category" class="w-full mt-2 p-2 border border-gray-300 rounded-lg">
+            <x-input-label for="category" :value="__('Category:')" />
+            <x-text-input id="category" class="block mt-1 w-full" type="text" name="category" value="{{''}}" required autofocus autocomplete="name of Category" />
             <livewire:web.button.button :button="'create'" :name="'Create category'" :type-form="'categoryForm'"/>
         </form>
     </x-guest-layout>

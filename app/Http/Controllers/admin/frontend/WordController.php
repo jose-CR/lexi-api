@@ -11,12 +11,14 @@ use App\Models\Word;
 class WordController extends Controller
 {
     public function create(){
-        $subCategories = SubCategory::with('category')->get();
+        $subCategories = SubCategory::with('category')
+        ->get()
+        ->mapWithKeys(fn($sub) => [
+            $sub->id => $sub->subcategory . ' (' . $sub->category->category . ')'
+        ])
+        ->toArray();
 
-        $uniqueLetters = Word::selectRaw('LOWER(letter) as letter')
-            ->distinct()
-            ->orderBy('letter', 'asc')
-            ->pluck('letter');
+        $uniqueLetters = Word::ForSelect('letter', 'letter', 'letter', 'LOWER');
 
         return view('admin.pages.create.word-create', [
             'subCategories' => $subCategories,
@@ -42,37 +44,57 @@ class WordController extends Controller
 
     public function editShow($id)
     {
+
+        $subCategories = SubCategory::with('category')
+        ->get()
+        ->mapWithKeys(fn($sub) => [
+            $sub->id => $sub->subcategory . ' (' . $sub->category->category . ')'
+        ])
+        ->toArray();
+
         $word = Word::findOrFail($id);
     
         // Obtener letras únicas ordenadas
-        $uniqueLetters = Word::selectRaw('LOWER(letter) as letter')
-            ->distinct()
-            ->orderBy('letter', 'asc')
-            ->pluck('letter');
+        $uniqueLetters = Word::ForSelect('letter', 'letter', 'letter', 'LOWER');
     
         // Decodificar JSON si es necesario
         $times = is_string($word->times) ? json_decode($word->times, true) : ($word->times ?? []);
     
+        // Helper para normalizar definiciones
+        $normalizeDefinitions = function ($definitions) {
+            if (is_string($definitions)) {
+                $definitions = [$definitions]; // lo envolvemos en array
+            }
+            if (!is_array($definitions)) {
+                $definitions = []; // fallback seguro
+            }
+            return implode(', ', $definitions); // las junta con coma
+        };
+    
         // Normalizar los tiempos
         $pasado = [
-            'definition' => implode(', ', data_get($times, 'pasado.definition', [])),
+            'definition' => $normalizeDefinitions(data_get($times, 'pasado.definition', [])),
             'sentence' => data_get($times, 'pasado.sentence', ''),
             'spanishSentence' => data_get($times, 'pasado.spanishSentence', ''),
         ];
     
         $ing = [
-            'definition' => implode(', ', data_get($times, 'ing.definition', [])),
+            'definition' => $normalizeDefinitions(data_get($times, 'ing.definition', [])),
             'sentence' => data_get($times, 'ing.sentence', ''),
             'spanishSentence' => data_get($times, 'ing.spanishSentence', ''),
         ];
+
+        $times = is_string($word->times) ? json_decode($word->times, true) : ($word->times ?? []);
     
         return view('admin.pages.edit.word-edit', compact(
             'word',
             'uniqueLetters',
+            'subCategories',
             'pasado',
-            'ing'
+            'ing',
+            'times',
         ));
-    }    
+    }
 
     public function update(UpdateWordRequest $request, $id){
         $validated = $request->validated();
