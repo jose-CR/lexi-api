@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ForSelectTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 class Word extends Model
 {
     use HasFactory;
+    use ForSelectTrait;
 
     protected $fillable = ['sub_category_id', 'letter', 'word', 'definition', 'spanish_sentence', 'sentence', 'times'];
 
