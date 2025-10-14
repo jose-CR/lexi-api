@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\frontend\PrincipalController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\WordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //lexi api
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth.jwt:index,show'], function(){
+Route::group(['prefix' => 'v1', 'middleware' => 'auth.jwt:'], function(){
+    Route::get('', [PrincipalController::class, 'principal'])->name('principal');
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('subcategories', SubCategoryController::class);
     Route::apiResource('words', WordController::class);

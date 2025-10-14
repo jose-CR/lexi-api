@@ -17,13 +17,13 @@ class JwtMiddleware
      */
     public function handle(Request $request, Closure $next, $except): Response
     {
-        // Lista de métodos de controlador que no requieren JWT
         $except = [
+            'principal',
             'index',
             'show',
         ];
 
-        $actionMethod = $request->route()->getActionMethod(); // 'index', 'show', 'store', etc.
+        $actionMethod = $request->route()->getActionMethod();
 
         if (in_array($actionMethod, $except)) {
             return $next($request);
