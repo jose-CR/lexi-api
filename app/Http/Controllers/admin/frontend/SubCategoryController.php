@@ -7,13 +7,13 @@ use App\Http\Requests\Api\StoreSubCategoryRequest;
 use App\Http\Requests\Api\UpdateSubCategoryRequest;
 use App\Models\Category;
 use App\Models\SubCategory;
-use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
 
     public function create(){
-        $categories = Category::all();
+        $categories = Category::ForSelect('id', 'category', 'id', 'LOWER');
+
         return view('admin.pages.create.subcategory-create', compact('categories'));
     }
 
@@ -33,9 +33,11 @@ class SubCategoryController extends Controller
     }
 
     public function editShow($id){
+        $categories = Category::ForSelect('id', 'category', 'id', 'LOWER');
+
         $subcategory = SubCategory::findOrFail($id);
 
-        return view('admin.pages.edit.subcategory-edit', compact('subcategory'));
+        return view('admin.pages.edit.subcategory-edit', compact('subcategory', 'categories'));
     }
 
     public function update(UpdateSubCategoryRequest $request, $id){

@@ -13,7 +13,7 @@ $columns = [
 
 $model = Word::class;
 
-$searchColumns = ['id', 'word'];
+$searchColumns = ['id', 'word', 'letter'];
 
 $links = [
     'create' => 'word-create',
