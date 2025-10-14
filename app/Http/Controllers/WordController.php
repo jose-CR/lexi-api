@@ -92,7 +92,6 @@ class WordController extends Controller
         {
             $data = $request->validated();
 
-            // Si definition aún es array, conviértela a json
             if (isset($data['definition']) && is_array($data['definition'])) {
                 $data['definition'] = json_encode($data['definition']);
             }

@@ -24,7 +24,7 @@ return [
     | affect the paths of its internal API that aren't exposed to users.
     |
     */
-    'path' => '/scalar',
+    'path' => '/documentation',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,7 +121,7 @@ return [
         'darkMode' => false,
 
         /** forceDarkModeState makes it always this state no matter what*/
-        'forceDarkModeState' => 'dark',
+        // 'forceDarkModeState' => 'dark',
 
         /** Whether to show the dark mode toggle */
         'hideDarkModeToggle' => false,
@@ -193,6 +193,11 @@ return [
          * By default we only open the relevant tag based on the url, however if you want all the tags open by default then set this configuration option :)
          */
         'defaultOpenAllTags' => false,
+
+        /** 
+         * we only using for the toolbar configuration value are never, always
+        */
+        'showToolbar' => "never",
     ],
 
 ];

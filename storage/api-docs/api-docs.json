@@ -18,12 +18,13 @@
                     "Categories"
                 ],
                 "summary": "Listar todas las categorías",
-                "operationId": "d5d9c7dd89fc28763c04c21c773e08f2",
+                "description": "Obtiene un listado paginado de categorías. Permite incluir subcategorías y aplicar filtros.",
+                "operationId": "getCategories",
                 "parameters": [
                     {
                         "name": "includeSubCategories",
                         "in": "query",
-                        "description": "Incluir subcategorías en la respuesta",
+                        "description": "Incluir subcategorías en la respuesta (true o false)",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -43,7 +44,152 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Listado de categorías"
+                        "description": "✅ Lista de categorías obtenida correctamente.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Lista de categorías obtenida correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "info": {
+                                                    "properties": {
+                                                        "count": {
+                                                            "type": "integer",
+                                                            "example": 6
+                                                        },
+                                                        "pages": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "category": {
+                                                                "type": "string",
+                                                                "example": "ingles"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "meta": {
+                                                    "properties": {
+                                                        "current_page": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "per_page": {
+                                                            "type": "integer",
+                                                            "example": 15
+                                                        },
+                                                        "from": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "to": {
+                                                            "type": "integer",
+                                                            "example": 6
+                                                        },
+                                                        "last_page": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "total": {
+                                                            "type": "integer",
+                                                            "example": 6
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "links": {
+                                                    "properties": {
+                                                        "first": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/categories?page=1"
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "last": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/categories?page=1"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error al obtener las categorías.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ Error al obtener las categorías."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles del error o excepción."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -53,14 +199,14 @@
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Obtener una categoría",
-                "description": "Devuelve los detalles de una categoría, con opción de incluir subcategorías",
-                "operationId": "b1e75677b2083bbe1dfd35f3fa25f820",
+                "summary": "Obtener una categoría por su ID",
+                "description": "Devuelve los detalles de una categoría específica. Se puede incluir opcionalmente la lista de subcategorías relacionadas.",
+                "operationId": "getCategoryById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID de la categoría",
+                        "description": "ID numérico de la categoría a consultar",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -70,7 +216,7 @@
                     {
                         "name": "includeSubCategories",
                         "in": "query",
-                        "description": "Incluir subcategorías",
+                        "description": "Incluir subcategorías asociadas a la categoría",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -80,17 +226,115 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Categoría obtenida correctamente",
+                        "description": "✅ Categoría obtenida correctamente.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Category"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Categoría obtenida correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "category": {
+                                                    "type": "string",
+                                                    "example": "ingles"
+                                                },
+                                                "subcategories": {
+                                                    "description": "Lista de subcategorías si se incluye con includeSubCategories=true",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 10
+                                                            },
+                                                            "subcategory": {
+                                                                "type": "string",
+                                                                "example": "vocabulario básico"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Categoría no encontrada"
+                        "description": "❌ Categoría no encontrada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo obtener la categoría."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Category] 999"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error interno al obtener la categoría.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo obtener la categoría."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles de la excepción."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -101,13 +345,13 @@
                     "SubCategories"
                 ],
                 "summary": "Listar todas las subcategorías",
-                "description": "Muestra un listado paginado de subcategorías. Puede incluir palabras relacionadas si se solicita.",
-                "operationId": "a4031afb0a2486cfba1fa884c7bf1416",
+                "description": "Obtiene un listado paginado de subcategorías. Permite incluir palabras relacionadas (includeWords=true).",
+                "operationId": "getSubCategories",
                 "parameters": [
                     {
                         "name": "includeWords",
                         "in": "query",
-                        "description": "Incluir palabras asociadas",
+                        "description": "Incluir palabras asociadas a cada subcategoría",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -117,7 +361,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "Número de página",
+                        "description": "Número de página para la paginación",
                         "required": false,
                         "schema": {
                             "type": "integer",
@@ -127,91 +371,172 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Listado de subcategorías con paginación",
+                        "description": "✅ Lista de subcategorías obtenida correctamente.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "info": {
-                                            "properties": {
-                                                "count": {
-                                                    "type": "integer",
-                                                    "example": 50
-                                                },
-                                                "pages": {
-                                                    "type": "integer",
-                                                    "example": 5
-                                                },
-                                                "next": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/subcategories?page=2",
-                                                    "nullable": true
-                                                },
-                                                "prev": {
-                                                    "type": "string",
-                                                    "example": null,
-                                                    "nullable": true
-                                                }
-                                            },
-                                            "type": "object"
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Lista de subcategorías obtenida correctamente."
                                         },
                                         "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/SubCategory"
-                                            }
-                                        },
-                                        "meta": {
                                             "properties": {
-                                                "current_page": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                "info": {
+                                                    "properties": {
+                                                        "count": {
+                                                            "type": "integer",
+                                                            "example": 32
+                                                        },
+                                                        "pages": {
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/subcategories?page=2",
+                                                            "nullable": true
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 },
-                                                "per_page": {
-                                                    "type": "integer",
-                                                    "example": 10
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "categoryId": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "subCategory": {
+                                                                "type": "string",
+                                                                "example": "verbo"
+                                                            },
+                                                            "words": {
+                                                                "description": "Solo aparece si includeWords=true",
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "type": "integer",
+                                                                            "example": 100
+                                                                        },
+                                                                        "word": {
+                                                                            "type": "string",
+                                                                            "example": "run"
+                                                                        },
+                                                                        "translation": {
+                                                                            "type": "string",
+                                                                            "example": "correr"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                },
+                                                                "nullable": true
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 },
-                                                "from": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                "meta": {
+                                                    "properties": {
+                                                        "current_page": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "per_page": {
+                                                            "type": "integer",
+                                                            "example": 15
+                                                        },
+                                                        "from": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "to": {
+                                                            "type": "integer",
+                                                            "example": 15
+                                                        },
+                                                        "last_page": {
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "total": {
+                                                            "type": "integer",
+                                                            "example": 32
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 },
-                                                "to": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "last_page": {
-                                                    "type": "integer",
-                                                    "example": 5
-                                                },
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 50
+                                                "links": {
+                                                    "properties": {
+                                                        "first": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/subcategories?page=1"
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/subcategories?page=2",
+                                                            "nullable": true
+                                                        },
+                                                        "last": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/subcategories?page=3"
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error al obtener las subcategorías.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
                                         },
-                                        "links": {
-                                            "properties": {
-                                                "first": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/subcategories?page=1"
-                                                },
-                                                "prev": {
-                                                    "type": "string",
-                                                    "example": null,
-                                                    "nullable": true
-                                                },
-                                                "next": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/subcategories?page=2",
-                                                    "nullable": true
-                                                },
-                                                "last": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/subcategories?page=5"
-                                                }
-                                            },
-                                            "type": "object"
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ Error al obtener las subcategorías."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles del error o excepción."
                                         }
                                     },
                                     "type": "object"
@@ -227,8 +552,9 @@
                 "tags": [
                     "SubCategories"
                 ],
-                "summary": "Mostrar subcategoría específica",
-                "operationId": "d9127e4dbf53fb6ab94688eac92dafb2",
+                "summary": "Mostrar una subcategoría específica",
+                "description": "Obtiene los detalles de una subcategoría por su ID. Si se pasa includeWords=true, incluye las palabras asociadas.",
+                "operationId": "getSubCategoryById",
                 "parameters": [
                     {
                         "name": "id",
@@ -236,13 +562,14 @@
                         "description": "ID de la subcategoría",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 5
                         }
                     },
                     {
                         "name": "includeWords",
                         "in": "query",
-                        "description": "Incluir palabras asociadas",
+                        "description": "Incluir palabras asociadas a la subcategoría",
                         "required": false,
                         "schema": {
                             "type": "boolean",
@@ -252,11 +579,120 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detalle de subcategoría",
+                        "description": "✅ Sub categoría obtenida correctamente.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SubCategory"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Sub categoría obtenida correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "categoryId": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "subCategory": {
+                                                    "type": "string",
+                                                    "example": "adjetivo"
+                                                },
+                                                "words": {
+                                                    "description": "Solo aparece si includeWords=true",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 21
+                                                            },
+                                                            "word": {
+                                                                "type": "string",
+                                                                "example": "beautiful"
+                                                            },
+                                                            "translation": {
+                                                                "type": "string",
+                                                                "example": "hermoso"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "❌ Sub categoría no encontrada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo obtener la sub categoría."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\SubCategory] 99"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error interno al obtener la sub categoría.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo obtener la sub categoría."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles del error o excepción."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -269,14 +705,14 @@
                 "tags": [
                     "Words"
                 ],
-                "summary": "Listar palabras",
-                "description": "Devuelve un listado paginado de palabras con filtros opcionales.",
-                "operationId": "49ba09a7da8a0177253ca717ca18a963",
+                "summary": "Listar todas las palabras",
+                "description": "Devuelve un listado paginado de palabras. Permite aplicar filtros definidos en el WordFilter (por ejemplo, subCategoryId, letra, palabra, etc.).",
+                "operationId": "getWords",
                 "parameters": [
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "Número de página",
+                        "description": "Número de página para la paginación",
                         "required": false,
                         "schema": {
                             "type": "integer",
@@ -286,79 +722,209 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Listado paginado de palabras",
+                        "description": "✅ Lista de palabras obtenida correctamente.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "info": {
-                                            "properties": {
-                                                "count": {
-                                                    "type": "integer",
-                                                    "example": 100
-                                                },
-                                                "pages": {
-                                                    "type": "integer",
-                                                    "example": 10
-                                                },
-                                                "next": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/words?page=2",
-                                                    "nullable": true
-                                                },
-                                                "prev": {
-                                                    "type": "string",
-                                                    "example": null,
-                                                    "nullable": true
-                                                }
-                                            },
-                                            "type": "object"
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Lista de palabras obtenida correctamente."
                                         },
                                         "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Word"
-                                            }
-                                        },
-                                        "meta": {
                                             "properties": {
-                                                "current_page": {
-                                                    "type": "integer",
-                                                    "example": 1
+                                                "info": {
+                                                    "properties": {
+                                                        "count": {
+                                                            "type": "integer",
+                                                            "example": 300
+                                                        },
+                                                        "pages": {
+                                                            "type": "integer",
+                                                            "example": 20
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/words?page=2",
+                                                            "nullable": true
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 },
-                                                "per_page": {
-                                                    "type": "integer",
-                                                    "example": 15
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 7
+                                                            },
+                                                            "subCategoryId": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "letter": {
+                                                                "type": "string",
+                                                                "example": "M"
+                                                            },
+                                                            "word": {
+                                                                "type": "string",
+                                                                "example": "Rerum"
+                                                            },
+                                                            "definition": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string",
+                                                                    "example": "suscipit"
+                                                                }
+                                                            },
+                                                            "sentence": {
+                                                                "type": "string",
+                                                                "example": "Reprehenderit tempora vitae deserunt qui quis soluta."
+                                                            },
+                                                            "spanishSentence": {
+                                                                "type": "string",
+                                                                "example": "Rem qui ut qui omnis."
+                                                            },
+                                                            "times": {
+                                                                "properties": {
+                                                                    "pasado": {
+                                                                        "properties": {
+                                                                            "definition": {
+                                                                                "type": "string",
+                                                                                "example": "porro, incidunt, est"
+                                                                            },
+                                                                            "sentence": {
+                                                                                "type": "string",
+                                                                                "example": "Est facere non exercitationem quia rerum."
+                                                                            },
+                                                                            "spanishSentence": {
+                                                                                "type": "string",
+                                                                                "example": "Quo consequuntur et soluta libero dolore."
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    },
+                                                                    "ing": {
+                                                                        "properties": {
+                                                                            "definition": {
+                                                                                "type": "string",
+                                                                                "example": "dolor, quis, quas"
+                                                                            },
+                                                                            "sentence": {
+                                                                                "type": "string",
+                                                                                "example": "Et voluptatem ea voluptatibus eos repellendus."
+                                                                            },
+                                                                            "spanishSentence": {
+                                                                                "type": "string",
+                                                                                "example": "Quo reprehenderit facilis quis ipsa dolorem."
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object",
+                                                                "nullable": true
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 },
-                                                "total": {
-                                                    "type": "integer",
-                                                    "example": 100
+                                                "meta": {
+                                                    "properties": {
+                                                        "current_page": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "per_page": {
+                                                            "type": "integer",
+                                                            "example": 15
+                                                        },
+                                                        "from": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "to": {
+                                                            "type": "integer",
+                                                            "example": 15
+                                                        },
+                                                        "last_page": {
+                                                            "type": "integer",
+                                                            "example": 20
+                                                        },
+                                                        "total": {
+                                                            "type": "integer",
+                                                            "example": 300
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "links": {
+                                                    "properties": {
+                                                        "first": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/words?page=1"
+                                                        },
+                                                        "prev": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        },
+                                                        "next": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/words?page=2",
+                                                            "nullable": true
+                                                        },
+                                                        "last": {
+                                                            "type": "string",
+                                                            "example": "http://localhost:8000/api/v1/words?page=20"
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error al obtener las palabras.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
                                         },
-                                        "links": {
-                                            "properties": {
-                                                "first": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/words?page=1"
-                                                },
-                                                "last": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/words?page=10"
-                                                },
-                                                "prev": {
-                                                    "type": "string",
-                                                    "example": null,
-                                                    "nullable": true
-                                                },
-                                                "next": {
-                                                    "type": "string",
-                                                    "example": "http://api.test/words?page=2",
-                                                    "nullable": true
-                                                }
-                                            },
-                                            "type": "object"
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ Error al obtener las palabras."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles del error o excepción."
                                         }
                                     },
                                     "type": "object"
@@ -374,34 +940,173 @@
                 "tags": [
                     "Words"
                 ],
-                "summary": "Obtener palabra",
-                "description": "Devuelve una palabra específica por ID.",
-                "operationId": "a966d752dc7ef69eb668892e80798381",
+                "summary": "Obtener una palabra específica",
+                "description": "Devuelve los detalles de una palabra específica según su ID.",
+                "operationId": "getWordById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "ID de la palabra",
+                        "description": "ID de la palabra que se desea obtener",
                         "required": true,
                         "schema": {
                             "type": "integer",
-                            "example": 1
+                            "example": 7
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detalle de la palabra",
+                        "description": "✅ Palabra obtenida correctamente.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Word"
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "green"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "✅ Palabra obtenida correctamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "subCategoryId": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "letter": {
+                                                    "type": "string",
+                                                    "example": "M"
+                                                },
+                                                "word": {
+                                                    "type": "string",
+                                                    "example": "Rerum"
+                                                },
+                                                "definition": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "suscipit"
+                                                    }
+                                                },
+                                                "sentence": {
+                                                    "type": "string",
+                                                    "example": "Reprehenderit tempora vitae deserunt qui quis soluta."
+                                                },
+                                                "spanishSentence": {
+                                                    "type": "string",
+                                                    "example": "Rem qui ut qui omnis."
+                                                },
+                                                "times": {
+                                                    "properties": {
+                                                        "pasado": {
+                                                            "properties": {
+                                                                "definition": {
+                                                                    "type": "string",
+                                                                    "example": "porro, incidunt, est"
+                                                                },
+                                                                "sentence": {
+                                                                    "type": "string",
+                                                                    "example": "Est facere non exercitationem quia rerum."
+                                                                },
+                                                                "spanishSentence": {
+                                                                    "type": "string",
+                                                                    "example": "Quo consequuntur et soluta libero dolore."
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "ing": {
+                                                            "properties": {
+                                                                "definition": {
+                                                                    "type": "string",
+                                                                    "example": "dolor, quis, quas"
+                                                                },
+                                                                "sentence": {
+                                                                    "type": "string",
+                                                                    "example": "Et voluptatem ea voluptatibus eos repellendus."
+                                                                },
+                                                                "spanishSentence": {
+                                                                    "type": "string",
+                                                                    "example": "Quo reprehenderit facilis quis ipsa dolorem."
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Palabra no encontrada"
+                        "description": "❌ Palabra no encontrada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ Palabra no encontrada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "❌ Error interno al obtener la palabra.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "color": {
+                                            "type": "string",
+                                            "example": "red"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "❌ No se pudo obtener la palabra."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Detalles del error o excepción."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
