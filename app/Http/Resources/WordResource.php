@@ -12,8 +12,19 @@ class WordResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    
     public function toArray(Request $request): array
     {
+        $times = [];
+        if (is_array($this->times)) {
+            foreach ($this->times as $key => $value) {
+                // Si el valor es un objeto (asociativo), lo envolvemos en un array
+                $times[$key] = is_array($value) && array_keys($value) !== range(0, count($value) - 1)
+                    ? [$value]
+                    : $value;
+            }
+        }
+
         return [
             'id' => $this->id,
             'subCategoryId' => $this->sub_category_id,
@@ -22,7 +33,7 @@ class WordResource extends JsonResource
             'definition' => $this->definition,
             'sentence' => $this->sentence,
             'spanishSentence' => $this->spanish_sentence,
-            'times' => $this->times,
+            'times' => $times,
         ];
     }
 }
