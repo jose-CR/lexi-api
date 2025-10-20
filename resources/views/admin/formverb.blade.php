@@ -6,7 +6,8 @@ $columns = [
     'letter' => 'letter',
     'Word' => 'word',
     'Acciones' => 'actions',
-    'Form Verb' => 'times',
+    'Pasado' => 'times.pasado',
+    'Ing' => 'times.ing',
 ];
 
 $model = Word::class;

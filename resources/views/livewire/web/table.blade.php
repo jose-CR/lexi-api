@@ -3,7 +3,7 @@
         {{-- Layout con botón y buscador --}}
         <section class="mb-4 flex flex-col md:flex-row justify-between items-center w-full gap-4">
             <a href="{{ route($links['create']) }}" 
-            class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
+               class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
                 {{ $button }}
             </a>
             <input 
@@ -43,28 +43,25 @@
         <tbody>
             @forelse ($rows as $row)
                 <tr class="text-base bg-white">
-                    {{-- columnas normales --}}
                     @foreach ($columns as $label => $field)
                         @if ($label !== 'Acciones')
                             <td class="border border-gray-300 py-2 px-4 text-center text-black">
-                                @if ($field === 'times' && is_array($row->times))
-                                    <div class="text-left">
-                                        @foreach ($row->times as $time => $data)
-                                            <div class="mb-2">
-                                                <strong class="text-blue-600">{{ ucfirst($time) }}</strong><br>
-                                                <span class="italic">{{ $data['sentence'] ?? '' }}</span><br>
-                                                <span class="text-gray-500">{{ $data['spanishSentence'] ?? '' }}</span>
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                @if (\Illuminate\Support\Str::startsWith($field, 'times.'))
+                                    @if ($row->columnData[$field])
+                                        <div class="text-left">
+                                            <span class="italic">{{ $row->columnData[$field]['sentence'] }}</span><br>
+                                            <span class="text-gray-500">{{ $row->columnData[$field]['spanishSentence'] }}</span>
+                                        </div>
+                                    @else
+                                        <span class="text-gray-400 italic">No hay datos</span>
+                                    @endif
                                 @else
-                                    {{ data_get($row, $field, 'no hay datos almacenados') }}
+                                    {{ $row->columnData[$field] }}
                                 @endif
                             </td>
                         @endif
                     @endforeach
-
-                    {{-- columna Acciones siempre al final --}}
+                    
                     <td class="border border-gray-300 py-2 px-4 text-center text-black">
                         <div class="flex items-center justify-center space-x-4">
                             <a href="{{ route($links['edit'], ['id' => $row->id]) }}" 
